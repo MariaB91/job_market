@@ -1,0 +1,16 @@
+# Exemple de fichier de configuration YAML
+data_sources:
+  - name: 'welcome_to_the_jungle'
+    url: 'https://www.welcometothejungle.com/jobs'
+    type: 'web_scraping'
+  - name: 'linkedin'
+    url: 'https://www.linkedin.com/jobs'
+    type: 'web_scraping'
+  - name: 'themuse'
+    url: 'https://www.themuse.com/api/public/jobs'
+    type: 'api'
+  - name: 'adzuna'
+    url: 'https://api.adzuna.com/v1/api/jobs'
+    type: 'api'
+    app_id: 'c23db5bf'
+    app_key: 'aea5e40eda96c0ca90a5bbc23d75e311'
