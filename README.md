@@ -35,7 +35,7 @@ Le projet collecte des données d'offres d'emploi de plusieurs sources, stocke c
 ## Architecture du Système
 - **Frontend** : Interface utilisateur 
 - **Backend** : API FastAPI
-- **Base de Données** : PostgreSQL
+- **Base de Données** : MySQL
 - **Modèle de Recommandation** : Implémenté en Python
 - **Déploiement** : Docker, Kubernetes
 - **CI/CD** : GitLab
@@ -46,7 +46,7 @@ Inclure des diagrammes UML pour les cas d'utilisation, les classes, et les séqu
 ## Choix Technologiques
 - **Langage de Programmation** : Python
 - **Framework Web** : FastAPI
-- **Base de Données** : PostgreSQL
+- **Base de Données** : MySQL
 - **Orchestrateur de Conteneurs** : Kubernetes
 - **CI/CD** : GitLab CI/CD
 
