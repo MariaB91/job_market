@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+databases[aiomysql]
+sqlalchemy
+pydantic
+requests
+beautifulsoup4
+spacy
+joblib
+scikit-learn
+pytest
