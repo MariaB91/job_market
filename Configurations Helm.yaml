@@ -1,0 +1,53 @@
+# Chart Helm pour le déploiement Kubernetes
+apiVersion: v2
+name: job-board
+description: A Helm chart for deploying the job board application
+
+dependencies:
+  - name: mysql
+    version: 8.0
+    repository: https://charts.bitnami.com/bitnami
+
+templates:
+  deployment.yaml:
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: {{ include "job-board.fullname" . }}
+    spec:
+      replicas: {{ .Values.replicaCount }}
+      selector:
+        matchLabels:
+          app: {{ include "job-board.name" . }}
+      template:
+        metadata:
+          labels:
+            app: {{ include "job-board.name" . }}
+        spec:
+          containers:
+            - name: job-board
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              ports:
+                - containerPort: 8000
+              env:
+                - name: DATABASE_URL
+                  value: "mysql+aiomysql://user:password@mysql-service/job_board"
+  service.yaml:
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: {{ include "job-board.fullname" . }}
+    spec:
+      selector:
+        app: {{ include "job-board.name" . }}
+      ports:
+        - protocol: TCP
+          port: 80
+          targetPort: 8000
+      type: LoadBalancer
+
+values.yaml:
+  replicaCount: 3
+  image:
+    repository: job-board-app
+    tag: latest
