@@ -1,0 +1,27 @@
+# Configuration Fluentd pour centraliser les logs
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-config
+  namespace: logging
+data:
+  fluent.conf: |
+    <source>
+      @type tail
+      path /var/log/containers/*.log
+      pos_file /var/log/es-containers.log.pos
+      tag kubernetes.*
+      format json
+      read_from_head true
+    </source>
+
+    <match kubernetes.**>
+      @type elasticsearch
+      host elasticsearch
+      port 9200
+      logstash_format true
+      logstash_prefix kubernetes
+      include_tag_key true
+      type_name access_log
+      flush_interval 5s
+    </match>
