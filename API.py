@@ -14,8 +14,8 @@ def fetch_jobs_from_adzuna(api_url, app_id, app_key):
 # Exemple d'utilisation
 themuse_url = 'https://www.themuse.com/api/public/jobs'
 adzuna_url = 'https://api.adzuna.com/v1/api/jobs'
-adzuna_app_id = 'your_app_id_here'
-adzuna_app_key = 'your_app_key_here'
+adzuna_app_id = 'c23db5bf'
+adzuna_app_key = 'aea5e40eda96c0ca90a5bbc23d75e311'
 themuse_data = fetch_jobs_from_themuse(themuse_url)
 adzuna_data = fetch_jobs_from_adzuna(adzuna_url, adzuna_app_id, adzuna_app_key)
 print(themuse_data)
