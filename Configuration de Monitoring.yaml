@@ -1,0 +1,13 @@
+# Configuration Prometheus pour surveiller l'application
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: job-board-monitor
+spec:
+  selector:
+    matchLabels:
+      app: job-board
+  endpoints:
+    - port: web
+      interval: 30s
+      path: /metrics
