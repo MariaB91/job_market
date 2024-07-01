@@ -1,4 +1,3 @@
-# Fichier YAML pour le déploiement Kubernetes
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,16 +20,3 @@ spec:
           env:
             - name: DATABASE_URL
               value: "mysql+aiomysql://user:password@mysql-service/job_board"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: job-board-service
-spec:
-  selector:
-    app: job-board
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8000
-  type: LoadBalancer
