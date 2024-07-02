@@ -1,36 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: job-board
-  namespace: job-board
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: job-board
-  template:
-    metadata:
-      labels:
-        app: job-board
-    spec:
-      containers:
-      - name: job-board
-        image: bmaria5491/job-board-app:latest
-        ports:
-        - containerPort: 8000
-        env:
-        - name: DATABASE_URL
-          value: "mysql+aiomysql://user:password@mysql-service:3306/job_board"
-        resources:
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-      imagePullSecrets:
-      - name: regcred
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: mysql
   namespace: job-board
 spec:
@@ -45,7 +15,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: bmaria5491/mysql-db:latest
+        image: bmaria5491/mysql-db:latest 
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: rootpassword
@@ -68,3 +38,33 @@ spec:
       - name: mysql-initdb
         configMap:
           name: mysql-initdb-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-board
+  namespace: job-board
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: job-board
+  template:
+    metadata:
+      labels:
+        app: job-board
+    spec:
+      containers:
+      - name: job-board
+        image: bmaria5491/job-board-app:latest  
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          value: "mysql+aiomysql://user:password@mysql-service:3306/job_board"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      imagePullSecrets:
+      - name: regcred  
