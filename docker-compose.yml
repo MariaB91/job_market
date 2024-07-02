@@ -2,20 +2,25 @@ version: '3.8'
 
 services:
   db:
-    build: ./mysql
-    ports:
-      - "3306:3306"
+    image: mysql:8.0
+    container_name: job_market-db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: job_board
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   api:
-    build: ./fastapi
+    build:
+      context: ./fastapi
+    container_name: job_market-api
+    environment:
+      DATABASE_URL: "mysql+aiomysql://user:password@db:3306/job_board"
     ports:
       - "8000:8000"
-    environment:
-      DATABASE_URL: "mysql+aiomysql://user:password@db/job_board"
     depends_on:
       - db

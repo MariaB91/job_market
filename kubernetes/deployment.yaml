@@ -14,10 +14,24 @@ spec:
         app: job-board
     spec:
       containers:
-      - name: job-board
-        image: job-board-app:latest
-        ports:
-        - containerPort: 8000
-        env:
-        - name: DATABASE_URL
-          value: "mysql+aiomysql://user:password@mysql-service/job_board"
+        - name: job-board
+          image: job-board-app:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "mysql+aiomysql://user:password@mysql-service:3306/job_board"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: job-board-service
+  namespace: job-board
+spec:
+  selector:
+    app: job-board
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: LoadBalancer

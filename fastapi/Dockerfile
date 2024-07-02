@@ -1,15 +1,15 @@
 # Dockerfile pour une application FastAPI
-FROM python:3.9-slim
+# Utilisation de l'image officielle de Python
+FROM python:3.9
 
-# Définition du répertoire de travail
+# Définir le répertoire de travail
 WORKDIR /app
 
-# Copie des fichiers de dépendances et installation des paquets Python nécessaires
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+# Copier les fichiers de l'application
+COPY . /app
 
-# Copie de tous les fichiers de l'application dans le répertoire de travail
-COPY . .
+# Installer les dépendances
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Commande par défaut pour démarrer l'application FastAPI avec Uvicorn
+# Commande pour démarrer l'application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
