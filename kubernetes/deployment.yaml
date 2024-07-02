@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: job-board
+  namespace: job-board
 spec:
   replicas: 3
   selector:
@@ -13,10 +14,10 @@ spec:
         app: job-board
     spec:
       containers:
-        - name: job-board
-          image: job-board-app:latest
-          ports:
-            - containerPort: 8000
-          env:
-            - name: DATABASE_URL
-              value: "mysql+aiomysql://user:password@mysql-service/job_board"
+      - name: job-board
+        image: job-board-app:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          value: "mysql+aiomysql://user:password@mysql-service/job_board"

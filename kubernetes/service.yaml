@@ -2,11 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: job-board-service
+  namespace: job-board
 spec:
   selector:
-    app: job-board  # Correspond au label spécifié dans mondeployment.yaml
+    app: job-board
   ports:
-    - protocol: TCP
-      port: 80  # Port que le service Kubernetes exposera
-      targetPort: 8000  # Port sur lequel l'application FastAPI écoute à l'intérieur du conteneur
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
   type: LoadBalancer

@@ -1,24 +1,21 @@
 version: '3.8'
 
 services:
-  app:
-    build: .
+  db:
+    build: ./mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: job_board
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  api:
+    build: ./fastapi
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=mysql+aiomysql://user:password@mysql/job_board
+      DATABASE_URL: "mysql+aiomysql://user:password@db/job_board"
     depends_on:
-      - mysql
-
-  mysql:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: job_board
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
-
-volumes:
-  mysql-data:
+      - db
