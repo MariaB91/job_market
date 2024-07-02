@@ -1,4 +1,3 @@
-# Dockerfile pour une application FastAPI
 # Utilisation de l'image officielle de Python
 FROM python:3.9
 
